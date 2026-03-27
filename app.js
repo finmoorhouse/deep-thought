@@ -52,6 +52,11 @@ const convergingMessages = [
   "Hm. Every pathway is pointing to the same result...",
   "The posterior is collapsing to a single point estimate...",
   "All utility functions appear to agree on this one...",
+  "Across all normative frameworks, I keep getting the same number...",
+  "The credence distribution is concentrating on a single value...",
+  "Robust to every sensitivity check. The answer is clear...",
+  "Even the adversarial red team agrees...",
+  "I wasn't expecting this level of convergence...",
 ];
 
 function scrollToBottom() {
@@ -125,7 +130,7 @@ async function handleSubmit(question) {
   for (const msg of steps) {
     contentSpan.textContent = msg;
     scrollToBottom();
-    await sleep(800 + Math.random() * 1200);
+    await sleep(1400 + Math.random() * 1200);
   }
 
   // Converging moment
