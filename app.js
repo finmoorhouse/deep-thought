@@ -4,28 +4,45 @@ const input = document.getElementById('user-input');
 const askBtn = document.getElementById('ask-btn');
 
 const thinkingMessages = [
+  // AI governance & intelligence explosion
+  "Modelling differential AI acceleration scenarios...",
+  "Simulating the intelligence explosion under various bottleneck assumptions...",
+  "Estimating time to full AI R&D automation...",
+  "Checking for persistent path-dependence in AI development trajectories...",
+  "Evaluating responsible scaling policy implications...",
+  "Stress-testing against AI-enabled power grab scenarios...",
+  "Checking whether singular loyalties change the sign of the answer...",
+  "Sampling from the distribution over compute bottlenecks...",
+  "Propagating credences through the international AGI governance graph...",
+
+  // Existential risk & macrostrategy
   "Enumerating possible worlds...",
-  "Marginalising over anthropic shadow...",
-  "Sampling from the posterior distribution over civilisational trajectories...",
   "Conditioning on the observation that we exist...",
-  "Estimating counterfactual impact...",
-  "Applying the astronomical waste argument...",
+  "Marginalising over anthropic shadow...",
   "Computing expected value under moral uncertainty...",
-  "Propagating credences through the causal graph...",
   "Checking for crucial considerations that reverse the sign...",
-  "Accounting for model uncertainty over population ethics...",
-  "Iterating value-of-information calculations...",
   "Evaluating under total, average, and critical-level views...",
-  "Performing sensitivity analysis on the discount rate...",
-  "Resolving decision-theoretic paradoxes...",
-  "Aggregating expert forecasts via geometric mean of odds...",
-  "Computing Shapley values for all moral patients...",
-  "Checking for acausal trade implications...",
-  "Debiasing anchoring effects on prior...",
-  "Integrating over all plausible utility functions...",
   "Updating on the Great Filter hypothesis...",
-  "Weighing cluelessness objections...",
+  "Estimating counterfactual impact on existential security...",
+  "Weighing astronomical waste against near-term cluelessness...",
+
+  // Better futures / flourishing
+  "Searching for easy eutopias... none found, reverting to hard ones...",
+  "Integrating over all plausible moral public goods...",
+  "Checking whether digital minds deserve moral consideration here...",
+  "Accounting for the sentience and rights of digital beings...",
+  "Verifying the answer generalises to post-scarcity conditions...",
+
+  // Epistemics & forecasting
   "Calibrating against superforecaster base rates...",
+  "Aggregating expert forecasts via geometric mean of odds...",
+  "Debiasing anchoring effects on prior...",
+  "Running adversarial collaboration between aligned recommender systems...",
+  "Consulting the collective epistemics module...",
+
+  // General
+  "Iterating value-of-information calculations...",
+  "Performing sensitivity analysis on the discount rate...",
   "Verifying result is robust to choice of normative framework...",
   "Rechecking — the answer keeps coming out the same...",
 ];
@@ -54,17 +71,27 @@ function addMessage(role, html) {
   return msg;
 }
 
+const spinnerFrames = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
+
 function addThinking() {
   const msg = document.createElement('div');
   msg.className = 'message assistant';
   msg.innerHTML = `
     <div class="message-label">Deep Thought</div>
     <div class="thinking-body">
-      <div class="thinking-text"><span class="thinking-content"></span><span class="thinking-dots"></span></div>
+      <div class="thinking-text"><span class="thinking-spinner"></span> <span class="thinking-content"></span></div>
     </div>
   `;
   chat.appendChild(msg);
   scrollToBottom();
+
+  const spinnerEl = msg.querySelector('.thinking-spinner');
+  let frame = 0;
+  msg._spinnerInterval = setInterval(() => {
+    spinnerEl.textContent = spinnerFrames[frame % spinnerFrames.length];
+    frame++;
+  }, 80);
+
   return msg;
 }
 
@@ -107,6 +134,7 @@ async function handleSubmit(question) {
   await sleep(2000 + Math.random() * 1000);
 
   // Remove thinking bubble
+  clearInterval(thinkingEl._spinnerInterval);
   thinkingEl.remove();
 
   // Show the answer
